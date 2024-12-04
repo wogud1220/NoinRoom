@@ -32,7 +32,12 @@
       }
 
       .pharmacy-list {
-        margin-top: 20px;
+        max-height: 500px; /* 최대 높이를 500px로 설정 */
+        overflow-y: auto; /* 세로 스크롤 활성화 */
+        border: 1px solid #ddd; /* 선택적으로 테두리를 추가 */
+        padding: 10px; /* 여백 추가 */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+        background-color: #f9f9f9; /* 배경색 추가 */
       }
 
       .pharmacy-item {
@@ -80,7 +85,11 @@
 
       <main class="content">
         <div class="pharmacy-header">
-          <img src="../src/pharmacy.png" alt="Pharmacy Logo" />
+          <img
+            src="../src/pharmacy.png"
+            alt="Pharmacy Logo"
+            style="width: 400px; height: 500px"
+          />
           <h2>주변 약국 안내</h2>
           <p>가까운 약국 정보를 확인하세요!</p>
         </div>
@@ -89,56 +98,90 @@
           <div class="pharmacy-item">
             <h3>대학 약국</h3>
             <p><strong>주소 :</strong> 충남 천안시 동남구 안서동 358-7</p>
-            <p><strong>운영시간 :</strong>평일 09:00 ~ 18:00 / 토요일,일요일 휴무</p>
+            <p>
+              <strong>운영시간 :</strong>평일 09:00 ~ 18:00 / 토요일,일요일 휴무
+            </p>
             <p><strong>전화번호 :</strong>041-557-8835</p>
           </div>
 
           <div class="pharmacy-item">
             <h3>아름 약국</h3>
-            <p><strong>주소 :</strong> 충남 천안시 동남구 망향로 189 1층 102호(안서동)</p>
-            <p><strong>운영시간 :</strong> 평일 08:30 ~ 17:50 / 토요일 08:30 ~ 13:00 / 일요일 휴무</p>
+            <p>
+              <strong>주소 :</strong> 충남 천안시 동남구 망향로 189 1층
+              102호(안서동)
+            </p>
+            <p>
+              <strong>운영시간 :</strong> 평일 08:30 ~ 17:50 / 토요일 08:30 ~
+              13:00 / 일요일 휴무
+            </p>
             <p><strong>전화번호 :</strong> 041-565-3777</p>
           </div>
 
           <div class="pharmacy-item">
             <h3>정문 약국</h3>
             <p><strong>주소 :</strong> 충남 천안시 동남구 망향로 189</p>
-            <p><strong>운영시간 :</strong> 평일 08:30 ~ 18:00 / 토요일 08:30 ~ 13:00 / 일요일 휴무</p>
+            <p>
+              <strong>운영시간 :</strong> 평일 08:30 ~ 18:00 / 토요일 08:30 ~
+              13:00 / 일요일 휴무
+            </p>
             <p><strong>전화번호 :</strong> 041-561-6200</p>
           </div>
 
           <div class="pharmacy-item">
             <h3>명진 약국</h3>
             <p><strong>주소 :</strong> 충남 천안시 동남구 망향로 187</p>
-            <p><strong>운영시간 :</strong> 평일 09:00 ~ 18:00 / 토요일,일요일 휴무</p>
+            <p>
+              <strong>운영시간 :</strong> 평일 09:00 ~ 18:00 / 토요일,일요일
+              휴무
+            </p>
             <p><strong>전화번호 :</strong> 041-561-2747</p>
           </div>
 
           <div class="pharmacy-item">
             <h3>대문 약국</h3>
             <p><strong>주소 :</strong> 충남 천안시 동남구 망향로 185</p>
-            <p><strong>운영시간 :</strong> 평일,토요일 08:30 ~ 18:00 / 일요일 휴무</p>
+            <p>
+              <strong>운영시간 :</strong> 평일,토요일 08:30 ~ 18:00 / 일요일
+              휴무
+            </p>
             <p><strong>전화번호 :</strong> 041-552-8001</p>
           </div>
 
           <div class="pharmacy-item">
             <h3>한사랑 약국</h3>
-            <p><strong>주소 :</strong> 충남 천안시 동남구 망향로 181 1층, 한사랑약국</p>
-            <p><strong>운영시간 :</strong> 평일 08:30 ~ 18:00 / 토요일 08:30 ~ 12:30 / 일요일 휴무</p>
+            <p>
+              <strong>주소 :</strong> 충남 천안시 동남구 망향로 181 1층,
+              한사랑약국
+            </p>
+            <p>
+              <strong>운영시간 :</strong> 평일 08:30 ~ 18:00 / 토요일 08:30 ~
+              12:30 / 일요일 휴무
+            </p>
             <p><strong>전화번호 :</strong> 041-555-0470</p>
           </div>
 
           <div class="pharmacy-item">
             <h3>이튼 약국</h3>
-            <p><strong>주소 :</strong> 충남 천안시 동남구 망향로 171 리시온빌딩</p>
-            <p><strong>운영시간 :</strong> 평일 09:00 ~ 21:00 / 토요일 09:00 ~ 14:00 / 일요일 휴무</p>
+            <p>
+              <strong>주소 :</strong> 충남 천안시 동남구 망향로 171 리시온빌딩
+            </p>
+            <p>
+              <strong>운영시간 :</strong> 평일 09:00 ~ 21:00 / 토요일 09:00 ~
+              14:00 / 일요일 휴무
+            </p>
             <p><strong>전화번호 :</strong> 041-566-5225</p>
           </div>
 
           <div class="pharmacy-item">
             <h3>호수 약국</h3>
-            <p><strong>주소 :</strong> 충남 천안시 동남구 천호지길 27 도솔빌리지 1층</p>
-            <p><strong>운영시간 :</strong> 평일 09:00 ~ 19:30 / 토요일 09:00 ~ 15:00 / 일요일 휴무</p>
+            <p>
+              <strong>주소 :</strong> 충남 천안시 동남구 천호지길 27 도솔빌리지
+              1층
+            </p>
+            <p>
+              <strong>운영시간 :</strong> 평일 09:00 ~ 19:30 / 토요일 09:00 ~
+              15:00 / 일요일 휴무
+            </p>
             <p><strong>전화번호 :</strong> 041-554-5886</p>
           </div>
         </div>
