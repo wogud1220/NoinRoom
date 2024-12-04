@@ -60,3 +60,46 @@ function checkBenefits() {
 
     resultsContainer.classList.remove('hidden');
 }
+
+// 초기 폰트 크기 설정
+let fontSize = 16; // 기본 폰트 크기(px)
+
+// 글씨 크기 증가 함수
+function increaseFontSize() {
+    fontSize += 2; // 폰트 크기 2px씩 증가
+    updateFontSize();
+}
+
+// 글씨 크기 감소 함수
+function decreaseFontSize() {
+    fontSize = Math.max(12, fontSize - 2); // 폰트 크기 12px 이하로 감소하지 않도록 제한
+    updateFontSize();
+}
+
+// 폰트 크기 업데이트 함수
+// 폰트 크기 업데이트 함수 수정
+function updateFontSize() {
+    const mainElement = document.querySelector('main'); // main 태그 선택
+    const contentElement = document.querySelector('.content'); // content 선택
+
+    if (mainElement) {
+        mainElement.style.fontSize = fontSize + 'px'; // main의 글씨 크기 조정
+    }
+
+    if (contentElement) {
+        contentElement.style.width = '600px'; // content 크기 고정
+    }
+}
+
+
+// + 버튼 클릭 이벤트 연결
+const zoomInButton = document.querySelector('.zoomin'); // + 버튼 클래스
+if (zoomInButton) {
+    zoomInButton.addEventListener('click', increaseFontSize);
+}
+
+// - 버튼 클릭 이벤트 연결
+const zoomOutButton = document.querySelector('.zoomout'); // - 버튼 클래스
+if (zoomOutButton) {
+    zoomOutButton.addEventListener('click', decreaseFontSize);
+}
