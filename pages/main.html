@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>병원 안내 메인 페이지</title>
+    <link rel="stylesheet" href="main.css" />
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="header-left">
+          <a href="main.html">
+            <img src="../src/home.jpg" alt="Home Logo" class="logo-header" />
+          </a>
+        </div>
+        <div class="header-right">
+          <div class="alert" onclick="playSiren()">직원 호출</div>
+          <audio id="siren-sound" src="../src/siren.mp3"></audio>
+        </div>
+      </header>
+
+      <main>
+        <div class="row">
+          <a href="pharmacy.html" class="box pharmacy" style="text-decoration: none; color: inherit;">
+            주변 약국 안내<br />(스크립샷해서 날먹ㄱ)
+          </a>
+          <a href="bus.html" class="box bus" style="text-decoration: none; color: inherit;">
+            <img src="../src/bus2.png" alt="Bus Logo" class="bus-logo" />
+            <span class="bus-text">버스 도착 정보 시간</span>
+          </a>
+          <a href="hopitalinfo.html" class="box hospital" style="text-decoration: none; color: inherit;">
+            병원 안내 페이지로 이동<br />
+            (건물별 층별 안내<br />진료동, 병원, 병동)<br />
+            및 편의시설 안내 + 존재하는 진료과 목록으로 표시
+          </a>
+          <a href="disease.html" class="box info" style="text-decoration: none; color: inherit;">
+            질병정보 안내 기능<br />
+            (나이별 무료 건강검진, 나이별로 목차 만들어서<br />
+            나이별로 어떤 무료 건강검진을 받을 수 있는지 확인)
+          </a>
+          <a href="disease.html" class="box ward" style="text-decoration: none; color: inherit;">
+            (십자가 모양) 환자 병실 찾기<br />
+            (환자 이름, 성별을 입력하면 현재 어디 병실에<br />
+            위치해있는지 확인 가능)
+          </a>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <img src="../src/logo.png" alt="Hospital Logo" class="logo" />
+        <div class="icons">
+          <div class="wrap">
+            <img src="../src/돋보기.png" class="magnifying" />
+          </div>
+          <button class="zoomin">+</button>
+          <button class="zoomout">-</button>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

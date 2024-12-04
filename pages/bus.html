@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>주변 약국 안내 페이지</title>
+    <link rel="stylesheet" href="bus.css" />
+
+    <script>
+      let busTimersLeft = [];
+      let busTimersRight = [];
+
+      function fetchBusInfoLeft() {
+        fetchBusInfo(
+          "http://apis.data.go.kr/1613000/ArvlInfoInqireService/getSttnAcctoArvlPrearngeInfoList?serviceKey=sC35JjZfctPCzMJKP3iPh37srVsdutf%2BGb6Urm%2F5qL1qk49bzck9hyxlIOZ40R4OxExCYEflABaCdJJ47HU%2BOA%3D%3D&cityCode=34010&nodeId=CAB285000639&numOfRows=10&pageNo=1&_type=xml",
+          "busInfoLeft",
+          busTimersLeft
+        );
+      }
+
+      function fetchBusInfoRight() {
+        fetchBusInfo(
+          "http://apis.data.go.kr/1613000/ArvlInfoInqireService/getSttnAcctoArvlPrearngeInfoList?serviceKey=sC35JjZfctPCzMJKP3iPh37srVsdutf%2BGb6Urm%2F5qL1qk49bzck9hyxlIOZ40R4OxExCYEflABaCdJJ47HU%2BOA%3D%3D&cityCode=34010&nodeId=CAB285000641&numOfRows=10&pageNo=1&_type=xml",
+          "busInfoRight",
+          busTimersRight
+        );
+      }
+      function fetchBusInfo(apiUrl, containerId, timerArray) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", apiUrl);
+        xhr.onreadystatechange = function () {
+          if (this.readyState == 4) {
+            const busInfoDiv = document.getElementById(containerId);
+            if (this.status === 200) {
+              const parser = new DOMParser();
+              const xmlDoc = parser.parseFromString(
+                this.responseText,
+                "application/xml"
+              );
+              const items = xmlDoc.getElementsByTagName("item");
+
+              if (items.length > 0) {
+                busInfoDiv.innerHTML = ""; // 기존 화면 내용 초기화
+                timerArray.length = 0; // 기존 타이머 데이터 초기화
+
+                Array.from(items).forEach((item, index) => {
+                  const routeNo =
+                    item.getElementsByTagName("routeno")[0]?.textContent ||
+                    "버스 번호 없음";
+                  const arrprevstationcnt =
+                    item.getElementsByTagName("arrprevstationcnt")[0]
+                      ?.textContent || "N/A";
+                  const arrTime = parseInt(
+                    item.getElementsByTagName("arrtime")[0]?.textContent || "0"
+                  );
+
+                  // 중복 제거: 배열에 동일한 routeNo가 이미 있으면 건너뜀
+                  if (timerArray.some((bus) => bus.routeNo === routeNo)) return;
+
+                  // 도착 예정 시간을 저장
+                  timerArray.push({
+                    id: index,
+                    routeNo,
+                    arrprevstationcnt,
+                    remainingTime: arrTime,
+                  });
+
+                  // 초기 화면 출력
+                  busInfoDiv.innerHTML += `
+              <div id="${containerId}-${index}">
+                <p>버스 번호: ${routeNo}</p>
+                <p>도착 예정 정류소 수: ${arrprevstationcnt} 전</p>
+                <p>도착 예정 시간: <span id="${containerId}-time-${index}">${Math.floor(
+                    arrTime / 60
+                  )}분 ${arrTime % 60}초</span> 후</p>
+              </div>
+              <hr>
+            `;
+                });
+              } else {
+                busInfoDiv.innerHTML = "<p>도착 예정인 버스가 없습니다.</p>";
+              }
+            } else {
+              busInfoDiv.innerHTML = `<p>오류 발생! 상태 코드: ${this.status}</p>`;
+            }
+          }
+        };
+        xhr.send("");
+      }
+
+      function updateTimers(timerArray, containerId) {
+        let shouldRefresh = false;
+
+        timerArray.forEach((bus) => {
+          if (bus.remainingTime > 0) {
+            bus.remainingTime -= 1; // 1초 감소
+            const minutes = Math.floor(bus.remainingTime / 60);
+            const seconds = bus.remainingTime % 60;
+            const timeElement = document.getElementById(
+              `${containerId}-time-${bus.id}`
+            );
+            if (timeElement) {
+              timeElement.textContent = `${minutes}분 ${seconds}초`;
+            }
+          } else if (bus.remainingTime === 0) {
+            shouldRefresh = true; // 시간이 0초가 된 항목이 있으면 API 호출 플래그 설정
+          }
+        });
+
+        if (shouldRefresh) {
+          if (containerId === "busInfoLeft") fetchBusInfoLeft();
+          if (containerId === "busInfoRight") fetchBusInfoRight();
+        }
+      }
+
+      // 좌측, 우측 각각 1초마다 타이머 업데이트
+      setInterval(() => updateTimers(busTimersLeft, "busInfoLeft"), 1000);
+      setInterval(() => updateTimers(busTimersRight, "busInfoRight"), 1000);
+
+      // 1분마다 API 호출
+      setInterval(fetchBusInfoLeft, 60000);
+      setInterval(fetchBusInfoRight, 60000);
+
+      // 초기 실행
+      fetchBusInfoLeft();
+      fetchBusInfoRight();
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="header-left">
+          <a href="main.html">
+            <img src="../src/home.jpg" alt="Home Logo" class="logo-header" />
+          </a>
+        </div>
+        <div class="header-right">
+          <div class="alert" onclick="playSiren()">직원 호출</div>
+          <audio id="siren-sound" src="../src/siren.mp3"></audio>
+        </div>
+      </header>
+      <div class="content">
+        <div id="left-bus-info">
+          <h2>실시간 버스 도착 정보 (오승빌라 방면)</h2>
+          <img
+            src="../src/left_bus_station.png"
+            alt="Left Bus Station"
+            class="bus-station"
+          />
+
+          <div id="busInfoLeft">버스 정보를 불러오는 중...</div>
+        </div>
+        <div id="right-bus-info">
+          <h2>실시간 버스 도착 정보 (터미널 방면)</h2>
+          <img
+            src="../src/right_bus_station.png"
+            alt="Left Bus Station"
+            class="bus-station"
+          />
+          <div id="busInfoRight">버스 정보를 불러오는 중...</div>
+        </div>
+      </div>
+      <footer class="footer">
+        <img src="../src/logo.png" alt="Hospital Logo" class="logo" />
+        <div class="icons">
+          <div class="wrap">
+            <img src="../src/돋보기.png" class="magnifying" />
+          </div>
+          <button class="zoom">+</button>
+          <button class="zoom">-</button>
+        </div>
+      </footer>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

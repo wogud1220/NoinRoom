@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>주변 약국 안내 페이지</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .content {
+            display: flex;
+            margin-top: 20px;
+            height: 600px;
+        }
+
+        .menu {
+            width: 25%;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-right: 1px solid #ccc;
+        }
+
+        .menu ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .menu ul li {
+            margin: 20px 0;
+            cursor: pointer;
+            font-size: 18px;
+            color: #007BFF;
+        }
+
+        .menu ul li:hover {
+            text-decoration: underline;
+        }
+
+        .submenu {
+            margin-top: 10px;
+            margin-left: 20px;
+            list-style: none;
+            padding: 0;
+            display: none;
+        }
+
+        .submenu li {
+            margin: 5px 0;
+            cursor: pointer;
+            font-size: 16px;
+            color: #0056b3;
+        }
+
+        .submenu li:hover {
+            text-decoration: underline;
+        }
+
+        .map-container {
+            width: 75%;
+            padding: 10px;
+            overflow-y: auto;
+            max-height: 600px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .map-container img {
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+
+        .map-container img.active {
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .facility {
+            margin-bottom: 20px;
+        }
+        
+        .facility h3 {
+            color: #0056b3;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .facility p, .facility ul {
+            margin: 5px 0;
+        }
+        
+        .facility ul {
+            padding-left: 20px;
+            list-style-type: disc;
+        }
+
+    #convenience-text {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 90%;
+}
+
+    #convenience-text h2 {
+        color: #007BFF;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <a href="main.html">
+                    <img src="../src/home.jpg" alt="Home Logo" class="logo-header">
+                </a>
+            </div>
+            <div class="header-right">
+                <div class="alert" onclick="playSiren()">직원 호출</div>
+                <audio id="siren-sound" src="../src/siren.mp3"></audio>
+            </div>
+        </header>
+            
+        <div class="content">
+            <div class="menu">
+                <ul>
+                    <li onclick="toggleSubmenu('building-submenu')">진료동</li>
+                    <ul id="building-submenu" class="submenu">
+                        <li onclick="showMap('building-1F')">1F</li>
+                        <li onclick="showMap('building-2F')">2F</li>
+                        <li onclick="showMap('building-3F')">3F</li>
+                        <li onclick="showMap('building-4F')">4F</li>
+                        <li onclick="showMap('building-5F')">5F</li>
+                    </ul>
+                    <li onclick="toggleSubmenu('annex-submenu')">별관(암센터)</li>
+                    <ul id="annex-submenu" class="submenu">
+                        <li onclick="showMap('annex-1F')">1F</li>
+                        <li onclick="showMap('annex-2F')">2F</li>
+                        <li onclick="showMap('annex-3F')">3F</li>
+                        <li onclick="showMap('annex-4F')">4F</li>
+                        <li onclick="showMap('annex-6F~7F')">6F ~ 7F</li>
+                    </ul>
+                    <li onclick="toggleSubmenu('ward-submenu')">병동</li>
+                    <ul id="ward-submenu" class="submenu">
+                        <li onclick="showMap('ward-1F')">1F</li>
+                        <li onclick="showMap('ward-2F')">2F</li>
+                        <li onclick="showMap('ward-3F')">3F</li>
+                        <li onclick="showMap('ward-4F')">4F</li>
+                        <li onclick="showMap('ward-5F')">5F</li>
+                        <li onclick="showMap('ward-6F')">6F</li>
+                    </ul>
+                    <li onclick="toggleSubmenu('annex-convinience')">편의시설</li>
+                    <li onclick="toggleSubmenu('annex-jinryogwa')">진료과</li>
+                </ul>
+            </div>
+            <div class="map-container">
+                <div id="convenience-text" class="hidden">
+                    <h2>단국대학교병원 편의시설 안내</h2>
+                    <p>저희 병원을 이용하시는데 불편이 없도록 최선을 다하겠습니다.</p>
+                    <div class="facility">
+                        <h3>푸드코트</h3>
+                        <p><strong>종류:</strong> 한식/일식/분식/죽식</p>
+                        <p><strong>위치:</strong> 별관(암센터) 1층 편의시설 내</p>
+                        <p><strong>영업시간:</strong> 07:00 ~ 19:30(평일) / 07:30 ~ 19:00(토, 공휴일) / 일요일 휴무</p>
+                        <p><strong>전화번호:</strong> 041-523-4528</p>
+                    </div>
+                    <div class="facility">
+                        <h3>CU 편의점</h3>
+                        <p><strong>종류:</strong> 식품, 잡화</p>
+                        <p><strong>위치:</strong> 별관(암센터) 1층</p>
+                        <p><strong>영업시간:</strong> 07:00~24:00</p>
+                        <p><strong>전화번호:</strong> 041-550-7321</p>
+                    </div>
+                    <div class="facility">
+                        <h3>뚜레주르 베이커리</h3>
+                        <p><strong>종류:</strong> 베이커리</p>
+                        <p><strong>위치:</strong> 별관(암센터) 1층</p>
+                        <p><strong>영업시간:</strong> 07:00~20:30(평일) / 08:00~17:30(토요일) / 일요일, 공휴일 휴무</p>
+                        <p><strong>전화번호:</strong> 041-550-7326</p>
+                    </div>
+                    <div class="facility">
+                        <h3>카페 - 뚜레주르 카페</h3>
+                        <p><strong>종류:</strong> 커피, 주스, 스무디, 샌드위치, 조각케잌</p>
+                        <p><strong>위치:</strong> 별관(암센터) 2층</p>
+                        <p><strong>영업시간:</strong> 07:00~17:30(평일) / 토,일, 공휴일 휴무</p>
+                        <p><strong>전화번호:</strong> 041-550-7327</p>
+                    </div>
+                    <div class="facility">
+                        <h3>의료기</h3>
+                        <p><strong>종류:</strong> 환자간호용품, 병원처방용품, 혈압계, 혈당측정기</p>
+                        <p><strong>위치:</strong> 별관(암센터) 1층 편의시설 내</p>
+                        <p><strong>영업시간:</strong> 07:30 ~ 21:00(평일) / 08:00 ~ 18:00(토, 일, 공휴일)</p>
+                        <p><strong>전화번호:</strong> 041-550-7323</p>
+                    </div>
+                    <div class="facility">
+                        <h3>미용실</h3>
+                        <p><strong>종류:</strong> 남여커트, 파마, 염색</p>
+                        <p><strong>위치:</strong> 별관(암센터) 1층 편의시설 내</p>
+                        <p><strong>영업시간:</strong> 09:00 ~ 19:00(평일) / 09:00 ~ 17:00(토요일) / 일요일 휴무</p>
+                        <p><strong>전화번호:</strong> 041-550-7333</p>
+                    </div>
+                    <div class="facility">
+                        <h3>주차장</h3>
+                        <p><strong>위치:</strong> 병원입구 주차타워</p>
+                        <p><strong>전화번호:</strong> 041-550-7330(정산소)</p>
+                        <p><strong>이용안내:</strong></p>
+                        <ul>
+                            <li><strong>들어오실 때:</strong> 도로상의 주차장표시를 따라 천천히(제한속도 20km) 진입한 후 차량번호 자동인식기를 통과하여 주십시오.</li>
+                            <li><strong>나가실 때:</strong> 주차장 입구 사전정산기에서 사전정산하시거나 출차 시 요금 감면자료를 제출하여 주십시오.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="departments-text" class="hidden">
+                    <h2>진료과 목록</h2>
+                    <ul id="departments-list"></ul>
+                </div>
+                
+                
+                <img src="../src/진료동1층.jpg" alt="진료동 1층" id="building-1F" class="map">
+                <img src="../src/진료동2층.jpg" alt="진료동 2층" id="building-2F" class="map">
+                <img src="../src/진료동3층.jpg" alt="진료동 3층" id="building-3F" class="map">
+                <img src="../src/진료동4층.jpg" alt="진료동 4층" id="building-4F" class="map">
+                <img src="../src/진료동5층.jpg" alt="진료동 5층" id="building-5F" class="map">
+
+                <img src="../src/별관1층.jpg" alt="별관 1층" id="annex-1F" class="map">
+                <img src="../src/별관2층.jpg" alt="별관 2층" id="annex-2F" class="map">
+                <img src="../src/별관3층.jpg" alt="별관 3층" id="annex-3F" class="map">
+                <img src="../src/별관4층.jpg" alt="별관 4층" id="annex-4F" class="map">
+                <img src="../src/별관6~8층.jpg" alt="별관 6층~7층" id="annex-6F~7F" class="map">
+
+                <img src="../src/병동1층.jpg" alt="병동 1층" id="ward-1F" class="map">
+                <img src="../src/병동2층.jpg" alt="병동 2층" id="ward-2F" class="map">
+                <img src="../src/병동3층.jpg" alt="병동 3층" id="ward-3F" class="map">
+                <img src="../src/병동4층.jpg" alt="병동 4층" id="ward-4F" class="map">
+                <img src="../src/병동5층.jpg" alt="병동 5층" id="ward-5F" class="map">
+                <img src="../src/병동6층.jpg" alt="병동 6층" id="ward-6F" class="map">
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <img src="../src/logo.png" alt="Hospital Logo" class="logo">
+            <div class="icons">
+                <div class="wrap">
+                    <img src="../src/돋보기.png" class="magnifying">
+                </div>                
+                <button class="zoom">+</button>
+                <button class="zoom">-</button>
+            </div>
+        </footer>
+    </div>
+    <script>
+
+function toggleSubmenu(id) {
+    const submenus = document.querySelectorAll('.submenu');
+    submenus.forEach(menu => {
+        if (menu.id === id) {
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        } else {
+            menu.style.display = 'none';
+        }
+    });
+
+    const maps = document.querySelectorAll('.map');
+    const convenienceText = document.getElementById('convenience-text');
+    const departmentsText = document.getElementById('departments-text');
+
+    maps.forEach(map => map.classList.remove('active'));
+    convenienceText.classList.add('hidden');
+    departmentsText.classList.add('hidden');
+
+    if (id === 'annex-convinience') {
+        convenienceText.classList.remove('hidden');
+    }
+
+    else if (id === 'annex-jinryogwa') {
+        const departments = [
+            "가정의학과", "감염내과", "구강악안면외과", "내분비대사내과", "류마티스내과", 
+            "마취통증의학과", "방사선종양학과", "병리과", "비뇨의학과/비뇨암센터", "산부인과",
+            "소아청소년과", "성형외과", "소화기내과", "신경과", "신경외과",
+            "신장내과", "심장혈관내과", "안과", "영상의학과", "응급의학과",
+            "이비인후과", "외과", "외상학과", "정신건강의학과", "정형외과",
+            "재활의학과", "직업환경의학과", "진단검사의학과", "종양,혈액암센터", "피부과",
+            "핵의학과", "호흡기-알레르기내과", "흉부외과", "예방의학과"
+        ];
+        departments.sort();
+
+        const listElement = document.getElementById('departments-list');
+        listElement.innerHTML = '';
+        departments.forEach(department => {
+            const listItem = document.createElement('li');
+            listItem.textContent = department;
+            listElement.appendChild(listItem);
+        });
+
+        departmentsText.classList.remove('hidden');
+    }
+    else {
+        const menuMappings = {
+            'building-submenu': ['building-1F', 'building-2F', 'building-3F', 'building-4F', 'building-5F'],
+            'annex-submenu': ['annex-1F', 'annex-2F', 'annex-3F', 'annex-4F', 'annex-6F~7F'],
+            'ward-submenu': ['ward-1F', 'ward-2F', 'ward-3F', 'ward-4F', 'ward-5F', 'ward-6F']
+        };
+
+        const mapIds = menuMappings[id];
+        if (mapIds) {
+            const activeMap = mapIds[0];
+            showMap(activeMap);
+        }
+    }
+}
+
+function showMap(mapId) {
+    const maps = document.querySelectorAll('.map');
+    maps.forEach(map => map.classList.remove('active'));
+
+    const selectedMap = document.getElementById(mapId);
+    if (selectedMap) {
+        selectedMap.classList.add('active');
+    }
+}
+    </script>
+</body>
+</html>

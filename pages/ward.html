@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>환자 위치 안내 페이지</title>
+    <link rel="stylesheet" href="main.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .floor-plan {
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            grid-gap: 2px;
+            width: 80%;
+            margin: 0 auto;
+            background-color: #ddd;
+            padding: 10px;
+        }
+        .room {
+          width: 50px;
+            background-color: #add8e6;
+            height: 60px;
+            text-align: center;
+            line-height: 60px;
+            border: 1px solid #999;
+        }
+        .room-62 {
+            background-color: #ffa07a;
+        }
+        .hallway {
+            background-color: #fff;
+            height: 60px;
+            border: 1px solid #999;
+        }
+        .stairs, .elevator {
+            background-color: #98fb98;
+            width: 50px;
+            height: 60px;
+            text-align: center;
+            line-height: 60px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+        .label {
+            grid-column: span 16;
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="header-left">
+          <a href="main.html">
+            <img src="../src/home.jpg" alt="Home Logo" class="logo-header" />
+          </a>
+        </div>
+        <div class="header-right">
+          <div class="alert" onclick="playSiren()">직원 호출</div>
+          <audio id="siren-sound" src="../src/siren.mp3"></audio>
+        </div>
+      </header>
+
+      <div class="label">61병동 / 62병동</div>
+      <div class="floor-plan">
+        <div class="stairs">계단</div>
+        <div class="room">61-01</div>
+        <div class="room">61-02</div>
+        <div class="room">61-03</div>
+        <div class="room">61-04</div>
+        <div class="hallway"></div>
+        <div class="elevator">엘리베이터</div>
+        <div class="hallway"></div>
+        <div class="room room-62">62-01</div>
+        <div class="room room-62">62-02</div>
+        <div class="room room-62">62-03</div>
+        <div class="room room-62">62-04</div>
+        <div class="stairs">계단</div>
+      </div>
+
+      <footer class="footer">
+        <img src="../src/logo.png" alt="Hospital Logo" class="logo" />
+        <div class="icons">
+          <div class="wrap">
+            <img src="../src/돋보기.png" class="magnifying" />
+          </div>
+          <button class="zoom">+</button>
+          <button class="zoom">-</button>
+        </div>
+      </footer>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

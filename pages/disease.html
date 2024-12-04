@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>질병 정보 안내 기능</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .content {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 600px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+
+        .content input {
+            width: calc(100% - 300px);
+            padding: 10px;
+            margin-right: 10px;
+            margin-left: 100px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .content button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+
+        .content button:hover {
+            background-color: #0056b3;
+        }
+
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .results h3 {
+            margin-top: 0;
+        }
+
+        .keypad {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .keypad-row {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .keypad button {
+            width: 50px;
+            height: 40px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .keypad button:hover {
+            background-color: #0056b3;
+        }
+        
+        .hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <a href="main.html">
+                    <img src="../src/home.jpg" alt="Home Logo" class="logo-header">
+                </a>
+            </div>
+            <div class="header-right">
+                <div class="alert" onclick="playSiren()">직원 호출</div>
+                <audio id="siren-sound" src="../src/siren.mp3"></audio>
+            </div>
+        </header>
+        <main>
+            <div class="content">
+                <h2>무료 검진 혜택 확인</h2>
+                <p>나이를 입력하고 검진 혜택을 확인하세요:</p>
+                <input type="text" id="age" placeholder="나이를 입력하세요" readonly onclick="toggleKeypad()">
+                <button onclick="checkBenefits()">확인</button>
+                <div id="keypad" class="keypad hidden">
+                    <div class="keypad-row">
+                        <button onclick="addToInput(1)">1</button>
+                        <button onclick="addToInput(2)">2</button>
+                        <button onclick="addToInput(3)">3</button>
+                    </div>
+                    <div class="keypad-row">
+                        <button onclick="addToInput(4)">4</button>
+                        <button onclick="addToInput(5)">5</button>
+                        <button onclick="addToInput(6)">6</button>
+                    </div>
+                    <div class="keypad-row">
+                        <button onclick="addToInput(7)">7</button>
+                        <button onclick="addToInput(8)">8</button>
+                        <button onclick="addToInput(9)">9</button>
+                    </div>
+                    <div class="keypad-row">
+                        <button onclick="clearInput()">C</button>
+                        <button onclick="addToInput(0)">0</button>
+                        <button onclick="removeLast()">←</button>
+                    </div>
+                </div>
+                <div id="benefits-results" class="results hidden">
+                    <h3>검진 혜택</h3>
+                    <ul id="benefits-list"></ul>
+                </div>
+            </div>
+        </main>
+        <footer class="footer">
+            <img src="../src/logo.png" alt="Hospital Logo" class="logo">
+            <div class="icons">
+                <div class="wrap">
+                    <img src="../src/돋보기.png" class="magnifying">
+                </div>                
+                <button class="zoom">+</button>
+                <button class="zoom">-</button>
+            </div>
+        </footer>
+    </div>
+    <script src="disease.js"></script>
+  </body>
+</html>
