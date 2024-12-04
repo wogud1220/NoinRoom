@@ -25,14 +25,13 @@
         margin-bottom: 20px;
       }
 
-      .pharmacy-header img {
-        width: 700px;
-        height: auto;
-        margin-bottom: 10px;
-      }
-
       .pharmacy-list {
-        margin-top: 20px;
+        font-size: 16px; /* 기본 글씨 크기 설정 */
+        max-height: 500px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+        background-color: #f9f9f9;
       }
 
       .pharmacy-item {
@@ -42,18 +41,6 @@
         border-radius: 5px;
         text-align: left;
         background-color: #f9f9f9;
-      }
-
-      .pharmacy-item h3 {
-        margin: 0 0 10px;
-        font-size: 18px;
-        color: #007bff;
-      }
-
-      .pharmacy-item p {
-        margin: 5px 0;
-        font-size: 16px;
-        color: #333;
       }
 
       footer {
@@ -80,7 +67,11 @@
 
       <main class="content">
         <div class="pharmacy-header">
-          <img src="../src/pharmacy.png" alt="Pharmacy Logo" />
+          <img
+            src="../src/pharmacy.png"
+            alt="Pharmacy Logo"
+            style="width: 400px; height: 500px"
+          />
           <h2>주변 약국 안내</h2>
           <p>가까운 약국 정보를 확인하세요!</p>
         </div>
@@ -89,56 +80,90 @@
           <div class="pharmacy-item">
             <h3>대학 약국</h3>
             <p><strong>주소 :</strong> 충남 천안시 동남구 안서동 358-7</p>
-            <p><strong>운영시간 :</strong>평일 09:00 ~ 18:00 / 토요일,일요일 휴무</p>
+            <p>
+              <strong>운영시간 :</strong>평일 09:00 ~ 18:00 / 토요일,일요일 휴무
+            </p>
             <p><strong>전화번호 :</strong>041-557-8835</p>
           </div>
 
           <div class="pharmacy-item">
             <h3>아름 약국</h3>
-            <p><strong>주소 :</strong> 충남 천안시 동남구 망향로 189 1층 102호(안서동)</p>
-            <p><strong>운영시간 :</strong> 평일 08:30 ~ 17:50 / 토요일 08:30 ~ 13:00 / 일요일 휴무</p>
+            <p>
+              <strong>주소 :</strong> 충남 천안시 동남구 망향로 189 1층
+              102호(안서동)
+            </p>
+            <p>
+              <strong>운영시간 :</strong> 평일 08:30 ~ 17:50 / 토요일 08:30 ~
+              13:00 / 일요일 휴무
+            </p>
             <p><strong>전화번호 :</strong> 041-565-3777</p>
           </div>
 
           <div class="pharmacy-item">
             <h3>정문 약국</h3>
             <p><strong>주소 :</strong> 충남 천안시 동남구 망향로 189</p>
-            <p><strong>운영시간 :</strong> 평일 08:30 ~ 18:00 / 토요일 08:30 ~ 13:00 / 일요일 휴무</p>
+            <p>
+              <strong>운영시간 :</strong> 평일 08:30 ~ 18:00 / 토요일 08:30 ~
+              13:00 / 일요일 휴무
+            </p>
             <p><strong>전화번호 :</strong> 041-561-6200</p>
           </div>
 
           <div class="pharmacy-item">
             <h3>명진 약국</h3>
             <p><strong>주소 :</strong> 충남 천안시 동남구 망향로 187</p>
-            <p><strong>운영시간 :</strong> 평일 09:00 ~ 18:00 / 토요일,일요일 휴무</p>
+            <p>
+              <strong>운영시간 :</strong> 평일 09:00 ~ 18:00 / 토요일,일요일
+              휴무
+            </p>
             <p><strong>전화번호 :</strong> 041-561-2747</p>
           </div>
 
           <div class="pharmacy-item">
             <h3>대문 약국</h3>
             <p><strong>주소 :</strong> 충남 천안시 동남구 망향로 185</p>
-            <p><strong>운영시간 :</strong> 평일,토요일 08:30 ~ 18:00 / 일요일 휴무</p>
+            <p>
+              <strong>운영시간 :</strong> 평일,토요일 08:30 ~ 18:00 / 일요일
+              휴무
+            </p>
             <p><strong>전화번호 :</strong> 041-552-8001</p>
           </div>
 
           <div class="pharmacy-item">
             <h3>한사랑 약국</h3>
-            <p><strong>주소 :</strong> 충남 천안시 동남구 망향로 181 1층, 한사랑약국</p>
-            <p><strong>운영시간 :</strong> 평일 08:30 ~ 18:00 / 토요일 08:30 ~ 12:30 / 일요일 휴무</p>
+            <p>
+              <strong>주소 :</strong> 충남 천안시 동남구 망향로 181 1층,
+              한사랑약국
+            </p>
+            <p>
+              <strong>운영시간 :</strong> 평일 08:30 ~ 18:00 / 토요일 08:30 ~
+              12:30 / 일요일 휴무
+            </p>
             <p><strong>전화번호 :</strong> 041-555-0470</p>
           </div>
 
           <div class="pharmacy-item">
             <h3>이튼 약국</h3>
-            <p><strong>주소 :</strong> 충남 천안시 동남구 망향로 171 리시온빌딩</p>
-            <p><strong>운영시간 :</strong> 평일 09:00 ~ 21:00 / 토요일 09:00 ~ 14:00 / 일요일 휴무</p>
+            <p>
+              <strong>주소 :</strong> 충남 천안시 동남구 망향로 171 리시온빌딩
+            </p>
+            <p>
+              <strong>운영시간 :</strong> 평일 09:00 ~ 21:00 / 토요일 09:00 ~
+              14:00 / 일요일 휴무
+            </p>
             <p><strong>전화번호 :</strong> 041-566-5225</p>
           </div>
 
           <div class="pharmacy-item">
             <h3>호수 약국</h3>
-            <p><strong>주소 :</strong> 충남 천안시 동남구 천호지길 27 도솔빌리지 1층</p>
-            <p><strong>운영시간 :</strong> 평일 09:00 ~ 19:30 / 토요일 09:00 ~ 15:00 / 일요일 휴무</p>
+            <p>
+              <strong>주소 :</strong> 충남 천안시 동남구 천호지길 27 도솔빌리지
+              1층
+            </p>
+            <p>
+              <strong>운영시간 :</strong> 평일 09:00 ~ 19:30 / 토요일 09:00 ~
+              15:00 / 일요일 휴무
+            </p>
             <p><strong>전화번호 :</strong> 041-554-5886</p>
           </div>
         </div>
@@ -150,11 +175,35 @@
           <div class="wrap">
             <img src="../src/돋보기.png" class="magnifying" />
           </div>
-          <button class="zoom">+</button>
-          <button class="zoom">-</button>
+          <button class="zoomin">+</button>
+          <button class="zoomout">-</button>
         </div>
       </footer>
     </div>
-    <script src="main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let pharmacyFontSize = 16; // 기본 글씨 크기(px)
+
+        // 글씨 크기 확대
+        function zoomInPharmacy() {
+          pharmacyFontSize += 1; // 1px씩 증가
+          const list = document.querySelector(".pharmacy-list");
+          list.style.fontSize = `${pharmacyFontSize}px`;
+        }
+
+        // 글씨 크기 축소
+        function zoomOutPharmacy() {
+          if (pharmacyFontSize > 10) { // 최소 크기 제한
+            pharmacyFontSize -= 1; // 1px씩 감소
+            const list = document.querySelector(".pharmacy-list");
+            list.style.fontSize = `${pharmacyFontSize}px`;
+          }
+        }
+
+        // 버튼에 이벤트 핸들러 연결
+        document.querySelector(".zoomin").addEventListener("click", zoomInPharmacy);
+        document.querySelector(".zoomout").addEventListener("click", zoomOutPharmacy);
+      });
+    </script>
   </body>
 </html>
