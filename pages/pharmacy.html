@@ -25,19 +25,13 @@
         margin-bottom: 20px;
       }
 
-      .pharmacy-header img {
-        width: 700px;
-        height: auto;
-        margin-bottom: 10px;
-      }
-
       .pharmacy-list {
-        max-height: 500px; /* 최대 높이를 500px로 설정 */
-        overflow-y: auto; /* 세로 스크롤 활성화 */
-        border: 1px solid #ddd; /* 선택적으로 테두리를 추가 */
-        padding: 10px; /* 여백 추가 */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
-        background-color: #f9f9f9; /* 배경색 추가 */
+        font-size: 16px; /* 기본 글씨 크기 설정 */
+        max-height: 500px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+        background-color: #f9f9f9;
       }
 
       .pharmacy-item {
@@ -47,18 +41,6 @@
         border-radius: 5px;
         text-align: left;
         background-color: #f9f9f9;
-      }
-
-      .pharmacy-item h3 {
-        margin: 0 0 10px;
-        font-size: 18px;
-        color: #007bff;
-      }
-
-      .pharmacy-item p {
-        margin: 5px 0;
-        font-size: 16px;
-        color: #333;
       }
 
       footer {
@@ -193,11 +175,35 @@
           <div class="wrap">
             <img src="../src/돋보기.png" class="magnifying" />
           </div>
-          <button class="zoom">+</button>
-          <button class="zoom">-</button>
+          <button class="zoomin">+</button>
+          <button class="zoomout">-</button>
         </div>
       </footer>
     </div>
-    <script src="main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let pharmacyFontSize = 16; // 기본 글씨 크기(px)
+
+        // 글씨 크기 확대
+        function zoomInPharmacy() {
+          pharmacyFontSize += 1; // 1px씩 증가
+          const list = document.querySelector(".pharmacy-list");
+          list.style.fontSize = `${pharmacyFontSize}px`;
+        }
+
+        // 글씨 크기 축소
+        function zoomOutPharmacy() {
+          if (pharmacyFontSize > 10) { // 최소 크기 제한
+            pharmacyFontSize -= 1; // 1px씩 감소
+            const list = document.querySelector(".pharmacy-list");
+            list.style.fontSize = `${pharmacyFontSize}px`;
+          }
+        }
+
+        // 버튼에 이벤트 핸들러 연결
+        document.querySelector(".zoomin").addEventListener("click", zoomInPharmacy);
+        document.querySelector(".zoomout").addEventListener("click", zoomOutPharmacy);
+      });
+    </script>
   </body>
 </html>
