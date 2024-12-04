@@ -9,7 +9,8 @@
         .content {
             margin: 20px auto;
             padding: 20px;
-            max-width: 600px;
+            width: 600px; /* 고정된 너비 설정 */
+            max-width: 600px; /* 최대 너비 */
             border: 1px solid #ccc;
             border-radius: 10px;
             background-color: #f9f9f9;
@@ -18,6 +19,7 @@
             flex-direction: column;
             align-items: center;
             gap: 20px; /* 요소 간 간격 */
+            box-sizing: border-box;
         }
 
         .content input {
@@ -142,8 +144,8 @@
                 <div class="wrap">
                     <img src="../src/돋보기.png" class="magnifying">
                 </div>                
-                <button class="zoom">+</button>
-                <button class="zoom">-</button>
+                <button class="zoom-in">+</button>
+                <button class="zoom-out">-</button>
             </div>
         </footer>
     </div>
