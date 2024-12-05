@@ -15,11 +15,26 @@
             <img src="../src/home.jpg" alt="Home Logo" class="logo-header" />
           </a>
         </div>
+        <div class="header-center">
+          <div class="jeobsu" onclick="openModal()">간편 접수</div>
+        </div>
         <div class="header-right">
           <div class="alert" onclick="playSiren()">직원 호출</div>
           <audio id="siren-sound" src="../src/siren.mp3"></audio>
         </div>
       </header>
+
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <h2 style="text-align: center;">간편 접수</h2><p style="text-align: center;">스마트폰 카메라로 스캔하여 간편 접수를 진행하세요!</p>
+          <form>
+            <div style="text-align: center;">
+              <img src="../src/qrcode.png" alt="QR Code for Easy Registration" style="width: 200px; height: 200px; margin: 20px 0;" />
+            </div>
+          </form>
+        </div>
+      </div>
 
       <main>
         <div class="row">
