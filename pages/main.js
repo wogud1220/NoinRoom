@@ -34,3 +34,21 @@ function playSiren() {
   const sirenAudio = document.getElementById("siren-sound");
   sirenAudio.play();
 }
+
+// 슬라이드 토글 함수
+function toggleReception() {
+  const receptionForm = document.getElementById("reception-form");
+  receptionForm.classList.toggle("hidden");
+  receptionForm.style.display =
+    receptionForm.style.display === "block" ? "none" : "block";
+}
+
+function openModal() {
+  const modal = document.getElementById("modal");
+  modal.style.display = "block";
+}
+
+function closeModal() {
+  const modal = document.getElementById("modal");
+  modal.style.display = "none";
+}

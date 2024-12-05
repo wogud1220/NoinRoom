@@ -9,23 +9,28 @@
         .content {
             margin: 20px auto;
             padding: 20px;
-            max-width: 600px;
+            width: 600px; /* 고정된 너비 설정 */
+            max-width: 600px; /* 최대 너비 */
             border: 1px solid #ccc;
             border-radius: 10px;
             background-color: #f9f9f9;
             font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px; /* 요소 간 간격 */
+            box-sizing: border-box;
         }
 
         .content input {
-            width: calc(100% - 300px);
+            width: calc(100% - 40px);
             padding: 10px;
-            margin-right: 10px;
-            margin-left: 100px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
 
         .content button {
+            width: 100;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -44,6 +49,8 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             background-color: #fff;
+            width: 100%;
+            text-align: center;
         }
 
         .results h3 {
@@ -55,6 +62,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            width: 100%; /* 키패드도 전체 폭으로 */
         }
         
         .keypad-row {
@@ -79,6 +87,16 @@
         
         .hidden {
             display: none;
+        }
+
+        .zoomin {
+            height: 50px;
+            width: 50px;
+        }
+
+        .zoomout {
+            height: 50px;
+            width: 50px;
         }
 
     </style>
@@ -136,8 +154,8 @@
                 <div class="wrap">
                     <img src="../src/돋보기.png" class="magnifying">
                 </div>                
-                <button class="zoom">+</button>
-                <button class="zoom">-</button>
+                <button class="zoomin">+</button>
+                <button class="zoomout">-</button>
             </div>
         </footer>
     </div>
