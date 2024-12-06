@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-
   let baseFontSize = 16;
 
   const zoomInButton = document.querySelector(".zoomin");
@@ -32,7 +31,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function playSiren() {
   const sirenAudio = document.getElementById("siren-sound");
+
+  // 오디오 재생
   sirenAudio.play();
+
+  // 5초 후 재생 중단
+  setTimeout(() => {
+    sirenAudio.pause(); // 재생 중단
+    sirenAudio.currentTime = 0; // 오디오를 처음으로 되돌림
+  }, 5000); // 5000ms = 5초
 }
 
 // 슬라이드 토글 함수
