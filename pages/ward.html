@@ -60,24 +60,49 @@
         height: 0;
         border-left: 15px solid transparent;
         border-right: 15px solid transparent;
-        border-top: 30px solid red; /* 아래를 가리키는 화살표 */
+        border-top: 30px solid red;
         position: absolute;
-        top: -30px; /* 화살표를 병실 위로 배치 */
+        top: -30px;
         left: 50%;
         transform: translateX(-50%);
-        display: none; /* 기본적으로 숨김 */
+        display: none;
         z-index: 10;
       }
 
       #keyboardzone {
-        /* position: fixed; */
-        width: 100%;
-        background-color: #f9f9f9;
-        border-top: 1px solid #ddd;
-        padding: 10px 0;
-        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-        font-size: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
       }
+
+      #keyboardzone div {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+      }
+
+      #keyboardzone button {
+        padding: 15px 20px;
+        font-size: 18px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      #keyboardzone button:hover {
+        background-color: #0056b3;
+      }
+
+      #keyboardzone button:active {
+        background-color: #003f7f;
+        transform: scale(0.95);
+      }
+
       table {
         margin: 0 auto;
       }
@@ -102,123 +127,199 @@
         border: 1px solid #ccc;
         border-radius: 5px;
       }
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-content {
+        position: relative;
+        margin: auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        width: 90%;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        margin-top: 200px;
+      }
+
+      .close-button {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 25px;
+        cursor: pointer;
+      }
+
+      #input-preview {
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+        font-weight: bold;
+      }
     </style>
     <script src="https://unpkg.com/hangul-js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const keyboardzone = document.getElementById("keyboardzone");
+        const keyboardModal = document.getElementById("keyboard-modal");
+        const keyboardZone = document.getElementById("keyboardzone");
+        const previewText = document.getElementById("preview-text");
         const nameInput = document.getElementById("name");
         const ageInput = document.getElementById("age");
-        let currentInput = null; // 현재 입력 중인 인풋
+        const closeButton = document.querySelector(".close-button");
+        let currentInput = null;
+
+        const layouts = {
+          koNormal: [
+            ["ㅂ", "ㅈ", "ㄷ", "ㄱ", "ㅅ", "ㅛ", "ㅕ", "ㅑ", "ㅐ", "ㅔ"],
+            ["ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ", "확인"],
+            ["쌍자음", "ㅋ", "ㅌ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ", "지우기"],
+          ],
+          numeric: [
+            ["1", "2", "3"],
+            ["4", "5", "6"],
+            ["7", "8", "9"],
+            ["0", "지우기", "확인"],
+          ],
+        };
 
         const keyboard = new customKeyboard(
-          keyboardzone,
+          keyboardZone,
           null,
-          null,
-          () => console.log("ESC"),
-          (text) => console.log("Enter:", text)
+          (text) => {
+            if (currentInput) {
+              currentInput.value = text;
+              previewText.textContent = text;
+            }
+          },
+          closeModal,
+          (text) => {
+            if (currentInput) {
+              currentInput.value = text;
+              previewText.textContent = "";
+            }
+            closeModal();
+          },
+          layouts
         );
 
-        nameInput.addEventListener("click", () => {
-          currentInput = nameInput;
-          keyboardzone.style.visibility = "visible";
-          keyboard.setInput(nameInput);
-        });
+        function openModal(inputField, layoutType) {
+          currentInput = inputField;
+          previewText.textContent = inputField.value || "";
+          keyboardModal.style.display = "block";
+          keyboard.setLayout(layoutType);
+          keyboard.setInput(inputField);
+        }
 
-        ageInput.addEventListener("click", () => {
-          currentInput = ageInput;
-          keyboardzone.style.visibility = "visible";
-          keyboard.setInput(ageInput);
-        });
+        function closeModal() {
+          keyboardModal.style.display = "none";
+          previewText.textContent = "";
+          currentInput = null;
+        }
 
-        // 키보드를 숨기거나 표시
-        document.addEventListener("click", (event) => {
-          if (
-            !event.target.closest("#keyboardzone") &&
-            !event.target.closest("input")
-          ) {
-            keyboardzone.style.visibility = "hidden";
+        closeButton.addEventListener("click", closeModal);
+        nameInput.addEventListener("click", () =>
+          openModal(nameInput, "koNormal")
+        );
+        ageInput.addEventListener("click", () =>
+          openModal(ageInput, "numeric")
+        );
+
+        window.addEventListener("click", (event) => {
+          if (event.target === keyboardModal) {
+            closeModal();
           }
         });
       });
 
-      function customKeyboard(zone, input, onClick, onESC, onEnter, form) {
-        var nowlang = "koNormal";
-        this.setClick = function (newclick) {
-          onClick = newclick;
+      function customKeyboard(zone, input, onClick, onESC, onEnter, layouts) {
+        let currentLayout = "koNormal";
+        let charlist = [];
+        let isDoubleConsonantActive = false;
+
+        const doubleConsonants = {
+          ㄱ: "ㄲ",
+          ㄷ: "ㄸ",
+          ㅂ: "ㅃ",
+          ㅅ: "ㅆ",
+          ㅈ: "ㅉ",
         };
-        this.setEnter = function (Enterfun) {
-          onEnter = Enterfun;
+
+        this.setLayout = function (layout) {
+          if (layouts[layout]) {
+            currentLayout = layout;
+            renderLayout();
+          }
         };
-        this.setZone = function (newZone) {
-          zone = newZone;
+
+        this.setInput = function (inputTag) {
+          input = inputTag;
+          charlist = Hangul.disassemble(input.value || "");
         };
-        var charlist = [];
-        this.setInput = function (inputtag) {
-          input = inputtag;
-          var sub = Hangul.disassemble("" + input.value);
-          charlist = sub;
-        };
+
         function getText() {
           return Hangul.assemble(charlist);
         }
-        if (form == null) {
-          form = {
-            koNormal: [
-              ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace"],
-              ["ㅂ", "ㅈ", "ㄷ", "ㄱ", "ㅅ", "ㅛ", "ㅕ", "ㅑ", "ㅐ", "ㅔ"],
-              ["ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ", "enter"],
-              ["shift", "ㅋ", "ㅌ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ", "한/영"],
-              ["space"],
-            ],
-          };
-        }
-        var keydiv = {};
-        for (let index = 0; index < Object.keys(form).length; index++) {
-          keydiv[Object.keys(form)[index]] = document.createElement("div");
-          keydiv[Object.keys(form)[index]].style.cssText = `
-            position: relative;
-            width: 100%;
-            visibility: hidden;
-          `;
-          for (let i = 0; i < form[Object.keys(form)[index]].length; i++) {
-            var keyline = document.createElement("table");
-            for (let j = 0; j < form[Object.keys(form)[index]][i].length; j++) {
-              var key = document.createElement("th");
-              key.innerText = form[Object.keys(form)[index]][i][j];
-              key.addEventListener("click", keyfun);
-              keyline.appendChild(key);
-            }
-            keydiv[Object.keys(form)[index]].appendChild(keyline);
-          }
-          zone.appendChild(keydiv[Object.keys(form)[index]]);
-        }
-        keydiv[nowlang].style.visibility = "visible";
 
-        function keyfun() {
-          if (this.innerText == "backspace") {
+        function renderLayout() {
+          zone.innerHTML = "";
+          const layout = layouts[currentLayout];
+          layout.forEach((row) => {
+            const rowDiv = document.createElement("div");
+            row.forEach((key) => {
+              const displayKey =
+                isDoubleConsonantActive && doubleConsonants[key]
+                  ? doubleConsonants[key]
+                  : key;
+              const keyButton = document.createElement("button");
+              keyButton.innerText = displayKey;
+              keyButton.addEventListener("click", () => handleKeyPress(key));
+              rowDiv.appendChild(keyButton);
+            });
+            zone.appendChild(rowDiv);
+          });
+        }
+
+        function handleKeyPress(key) {
+          if (key === "쌍자음") {
+            isDoubleConsonantActive = !isDoubleConsonantActive;
+            renderLayout();
+          } else if (key === "지우기") {
             charlist.pop();
-          } else if (this.innerText == "space") {
-            charlist.push(" ");
+          } else if (key === "확인") {
+            if (onEnter) onEnter(getText());
           } else {
-            charlist.push(this.innerText);
+            const charToAdd =
+              isDoubleConsonantActive && doubleConsonants[key]
+                ? doubleConsonants[key]
+                : key;
+            charlist.push(charToAdd);
           }
-          input.value = getText();
+
+          if (input) input.value = getText();
           if (onClick) onClick(getText());
         }
+
+        renderLayout();
       }
 
       function playSiren() {
         const sirenAudio = document.getElementById("siren-sound");
 
-        // 오디오 재생
         sirenAudio.play();
 
-        // 5초 후 재생 중단
         setTimeout(() => {
-          sirenAudio.pause(); // 재생 중단
-          sirenAudio.currentTime = 0; // 오디오를 처음으로 되돌림
-        }, 5000); // 5000ms = 5초
+          sirenAudio.pause();
+          sirenAudio.currentTime = 0;
+        }, 5000);
       }
       const patientData = {
         "11-01": { name: "김철수", age: 45 },
@@ -276,7 +377,6 @@
         const ageInput = parseInt(document.getElementById("age").value, 10);
         let foundRoom = null;
 
-        // 특정 병실을 탐색
         for (const [room, data] of Object.entries(patientData)) {
           if (data.name === nameInput && data.age === ageInput) {
             foundRoom = room;
@@ -284,7 +384,6 @@
           }
         }
 
-        // 기존 화살표 제거
         document.querySelectorAll(".arrow").forEach((arrow) => arrow.remove());
 
         if (foundRoom) {
@@ -294,7 +393,7 @@
           if (roomElement) {
             const arrow = document.createElement("div");
             arrow.className = "arrow";
-            roomElement.prepend(arrow); // 병실 상단에 화살표 추가
+            roomElement.prepend(arrow);
             arrow.style.display = "block";
           } else {
             alert("병실 요소를 찾을 수 없습니다.");
@@ -316,7 +415,6 @@
         <div class="alert" onclick="playSiren()">직원 호출</div>
         <audio id="siren-sound" src="../src/siren.mp3"></audio>
       </div>
-      <!-- 이름 입력과 QWERTY 키보드 -->
       <div class="input-container">
         <label for="name">이름: </label>
         <input id="name" type="text" placeholder="홍길동" />
@@ -325,7 +423,16 @@
         <input id="age" type="number" placeholder="54" />
         <button onclick="findPatient()">찾기</button>
       </div>
-      <div id="keyboardzone"></div>
+
+      <div id="keyboard-modal" class="modal">
+        <div class="modal-content">
+          <span class="close-button">×</span>
+          <div id="input-preview">
+            입력 중 : <span id="preview-text"></span>
+          </div>
+          <div id="keyboardzone"></div>
+        </div>
+      </div>
     </header>
     <div class="label">병실 위치 안내</div>
     <div class="floor-plan">
