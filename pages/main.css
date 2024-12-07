@@ -238,6 +238,7 @@ body {
 .modal {
   display: none;
   position: fixed;
+  margin-left: 10px;
   z-index: 1;
   left: 0;
   top: 0;
