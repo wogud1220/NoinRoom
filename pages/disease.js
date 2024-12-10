@@ -35,7 +35,7 @@ function checkBenefits() {
   const benefits = [];
 
   if (age >= 20) {
-    benefits.push("2년마다 무료 건강 검진(무료)");
+    benefits.push("2년마다 무료 건강 검진(무료, 국민건강보험 가입자 대상)");
   }
 
   if (age >= 24) {
