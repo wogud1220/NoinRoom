@@ -8,35 +8,30 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        // 초기 폰트 크기 설정
-        let fontSize = 24; // CSS에 설정된 초기 font-size 값과 동일
+        let fontSize = 24;
 
-        // 글씨 크기를 조정하는 함수
         function adjustFontSize(isZoomIn) {
           const busInfoElements = document.querySelectorAll(
             "#busInfoLeft div, #busInfoRight div"
           );
 
-          // 폰트 크기 증가/감소
           fontSize += isZoomIn ? 2 : -2;
-          fontSize = Math.max(12, Math.min(fontSize, 48)); // 최소 12px, 최대 48px 제한
+          fontSize = Math.max(12, Math.min(fontSize, 48));
 
-          // 각 요소에 font-size 적용
           busInfoElements.forEach((element) => {
             element.style.fontSize = fontSize + "px";
           });
         }
 
-        // 이벤트 핸들러 등록
         const zoomInButton = document.querySelector(".zoomin");
         const zoomOutButton = document.querySelector(".zoomout");
 
         if (zoomInButton) {
-          zoomInButton.addEventListener("click", () => adjustFontSize(true)); // + 버튼
+          zoomInButton.addEventListener("click", () => adjustFontSize(true));
         }
 
         if (zoomOutButton) {
-          zoomOutButton.addEventListener("click", () => adjustFontSize(false)); // - 버튼
+          zoomOutButton.addEventListener("click", () => adjustFontSize(false));
         }
       });
       let busTimersLeft = [];
@@ -72,8 +67,8 @@
               const items = xmlDoc.getElementsByTagName("item");
 
               if (items.length > 0) {
-                busInfoDiv.innerHTML = ""; // 기존 화면 내용 초기화
-                timerArray.length = 0; // 기존 타이머 데이터 초기화
+                busInfoDiv.innerHTML = "";
+                timerArray.length = 0;
 
                 Array.from(items).forEach((item, index) => {
                   const routeNo =
@@ -86,10 +81,8 @@
                     item.getElementsByTagName("arrtime")[0]?.textContent || "0"
                   );
 
-                  // 중복 제거: 배열에 동일한 routeNo가 이미 있으면 건너뜀
                   if (timerArray.some((bus) => bus.routeNo === routeNo)) return;
 
-                  // 도착 예정 시간을 저장
                   timerArray.push({
                     id: index,
                     routeNo,
@@ -97,7 +90,6 @@
                     remainingTime: arrTime,
                   });
 
-                  // 초기 화면 출력
                   busInfoDiv.innerHTML += `
               <div id="${containerId}-${index}">
                 <p>버스 번호: ${routeNo}</p>
@@ -125,7 +117,7 @@
 
         timerArray.forEach((bus) => {
           if (bus.remainingTime > 0) {
-            bus.remainingTime -= 1; // 1초 감소
+            bus.remainingTime -= 1;
             const minutes = Math.floor(bus.remainingTime / 60);
             const seconds = bus.remainingTime % 60;
             const timeElement = document.getElementById(
@@ -135,7 +127,7 @@
               timeElement.textContent = `${minutes}분 ${seconds}초`;
             }
           } else if (bus.remainingTime === 0) {
-            shouldRefresh = true; // 시간이 0초가 된 항목이 있으면 API 호출 플래그 설정
+            shouldRefresh = true;
           }
         });
 
@@ -145,15 +137,12 @@
         }
       }
 
-      // 좌측, 우측 각각 1초마다 타이머 업데이트
       setInterval(() => updateTimers(busTimersLeft, "busInfoLeft"), 1000);
       setInterval(() => updateTimers(busTimersRight, "busInfoRight"), 1000);
 
-      // 1분마다 API 호출
       setInterval(fetchBusInfoLeft, 60000);
       setInterval(fetchBusInfoRight, 60000);
 
-      // 초기 실행
       fetchBusInfoLeft();
       fetchBusInfoRight();
     </script>

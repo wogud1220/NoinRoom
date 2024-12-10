@@ -484,23 +484,19 @@
       }
 
       document.addEventListener("DOMContentLoaded", () => {
-        let baseFontSize = 16; // 기본 글씨 크기(px)
-        let imageScale = 1; // 이미지 기본 배율
+        let baseFontSize = 16;
+        let imageScale = 1;
 
-        // 버튼 요소 선택
         const zoomInButton = document.querySelector(".zoomin");
         const zoomOutButton = document.querySelector(".zoomout");
         const images = document.querySelectorAll(".map-container img");
 
-        // 글씨 크기 업데이트 함수
         function updateFontSize(scale) {
           baseFontSize += scale;
 
-          // 글씨 크기 제한 (최소 12px, 최대 32px)
           if (baseFontSize < 12) baseFontSize = 12;
           if (baseFontSize > 28) baseFontSize = 28;
 
-          // .content 영역 안의 모든 텍스트 크기 변경
           document
             .querySelectorAll(".content, .content *")
             .forEach((element) => {
@@ -508,46 +504,39 @@
             });
         }
 
-        // 이미지 확대/축소 함수
         function updateImageScale(scale) {
           imageScale += scale;
 
-          // 이미지 크기 제한 (최소 0.5배, 최대 3배)
           if (imageScale < 0.5) imageScale = 0.5;
           if (imageScale > 3) imageScale = 3;
 
-          // 활성화된 이미지에만 확대/축소 적용
           images.forEach((img) => {
             if (img.classList.contains("active")) {
               img.style.transform = `scale(${imageScale})`;
-              img.style.transformOrigin = "center center"; // 확대 기준을 이미지 중심으로 설정
+              img.style.transformOrigin = "center center";
             }
           });
         }
 
-        // + 버튼 클릭 이벤트
         zoomInButton.addEventListener("click", () => {
-          updateFontSize(2); // 글씨 크기를 2px 증가
-          updateImageScale(0.2); // 이미지 크기를 0.2배 증가
+          updateFontSize(2);
+          updateImageScale(0.2);
         });
 
-        // - 버튼 클릭 이벤트
         zoomOutButton.addEventListener("click", () => {
-          updateFontSize(-2); // 글씨 크기를 2px 감소
-          updateImageScale(-0.2); // 이미지 크기를 0.2배 감소
+          updateFontSize(-2);
+          updateImageScale(-0.2);
         });
       });
       function playSiren() {
         const sirenAudio = document.getElementById("siren-sound");
 
-        // 오디오 재생
         sirenAudio.play();
 
-        // 5초 후 재생 중단
         setTimeout(() => {
-          sirenAudio.pause(); // 재생 중단
-          sirenAudio.currentTime = 0; // 오디오를 처음으로 되돌림
-        }, 5000); // 5000ms = 5초
+          sirenAudio.pause();
+          sirenAudio.currentTime = 0;
+        }, 5000);
       }
     </script>
   </body>

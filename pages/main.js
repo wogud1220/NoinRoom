@@ -32,17 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
 function playSiren() {
   const sirenAudio = document.getElementById("siren-sound");
 
-  // 오디오 재생
   sirenAudio.play();
 
-  // 5초 후 재생 중단
   setTimeout(() => {
-    sirenAudio.pause(); // 재생 중단
-    sirenAudio.currentTime = 0; // 오디오를 처음으로 되돌림
-  }, 5000); // 5000ms = 5초
+    sirenAudio.pause();
+    sirenAudio.currentTime = 0;
+  }, 5000);
 }
 
-// 슬라이드 토글 함수
 function toggleReception() {
   const receptionForm = document.getElementById("reception-form");
   receptionForm.classList.toggle("hidden");

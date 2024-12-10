@@ -100,7 +100,7 @@ body {
 
 #left-bus-info,
 #right-bus-info {
-  width: 45%; /* 각각 화면의 45%를 차지 */
+  width: 45%;
   background-color: #f9f9f9;
   padding: 10px;
   border: 1px solid #ddd;
@@ -127,8 +127,8 @@ body {
   grid-column: 2;
   grid-row: 1;
   text-align: center;
-  display: flex; /* 가로 정렬 */
-  align-items: flex-start; /* 텍스트를 위쪽 정렬 */
+  display: flex;
+  align-items: flex-start;
   padding: 10px;
 }
 .bus-station {
@@ -137,11 +137,11 @@ body {
 }
 
 .bus-link {
-  display: flex; /* 내부 요소 가로 배치 */
-  align-items: flex-start; /* 텍스트를 이미지의 상단에 정렬 */
-  text-decoration: none; /* 링크 스타일 제거 */
-  color: inherit; /* 부모 색상 상속 */
-  width: 100%; /* 부모 크기 채움 */
+  display: flex;
+  align-items: flex-start;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
 }
 
 .bus-logo {
@@ -151,7 +151,7 @@ body {
 }
 
 .bus-text {
-  font-size: 25px; /* 글씨 크기 */
+  font-size: 25px;
   margin-top: 60px;
   margin-left: 20px;
   justify-content: center;
@@ -159,25 +159,26 @@ body {
   text-align: center;
 }
 #busInfo {
-  width: 50%; /* 화면 가로의 50% */
-  margin: 0; /* 좌측 정렬 */
+  width: 50%;
+  margin: 0;
   padding: 5px;
-  background-color: #f9f9f9; /* 배경색 */
-  border: 1px solid #ddd; /* 테두리 */
-  border-radius: 5px; /* 모서리 둥글게 */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 */
-  overflow: scroll; /* 내부 요소가 넘치지 않도록 설정 */
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: scroll;
 }
 
 #busInfo div {
-  margin-bottom: 5px; /* 각 항목 간 간격 줄임 */
-  padding: 5px; /* 내부 여백 줄임 */
-  border: 1px solid #ccc; /* 테두리 */
-  border-radius: 3px; /* 모서리 둥글게 */
-  background-color: #ffffff; /* 항목 배경색 */
-  font-size: 15px; /* 글꼴 크기 축소 */
-  line-height: 0.5; /* 줄 간격 줄임 */
+  margin-bottom: 5px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #ffffff;
+  font-size: 15px;
+  line-height: 0.5;
 }
+
 .hospital {
   background-color: #ffd1dc;
   grid-column: 1;
@@ -234,7 +235,6 @@ body {
   margin-left: 50px;
 }
 
-/* 모달 창 스타일 */
 .modal {
   display: none;
   position: fixed;

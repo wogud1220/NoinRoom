@@ -6,15 +6,30 @@
     <title>검진 혜택 안내 기능</title>
     <link rel="stylesheet" href="main.css" />
     <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
+
       .container {
-        height: 930px !important;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-sizing: border-box;
+      }
+
+      main {
+        flex: 1;
       }
 
       .content {
         margin: 20px auto;
         padding: 20px;
-        width: 600px; /* 고정된 너비 설정 */
-        max-width: 600px; /* 최대 너비 */
+        max-width: 600px;
+        max-height: calc(100vh - 200px);
         border: 1px solid #ccc;
         border-radius: 10px;
         background-color: #f9f9f9;
@@ -22,8 +37,15 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 20px; /* 요소 간 간격 */
+        gap: 20px;
         box-sizing: border-box;
+        overflow-y: auto;
+      }
+
+      @media (max-height: 600px) {
+        .content {
+          max-height: calc(100vh - 150px);
+        }
       }
 
       .content input {
@@ -53,7 +75,7 @@
         border: 1px solid #ddd;
         border-radius: 5px;
         background-color: #fff;
-        width: 100%;
+        width: 90%;
         text-align: center;
       }
 
@@ -66,7 +88,7 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
-        width: 100%; /* 키패드도 전체 폭으로 */
+        width: 100%;
       }
 
       .keypad-row {
