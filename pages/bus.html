@@ -7,6 +7,38 @@
     <link rel="stylesheet" href="bus.css" />
 
     <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // 초기 폰트 크기 설정
+        let fontSize = 24; // CSS에 설정된 초기 font-size 값과 동일
+
+        // 글씨 크기를 조정하는 함수
+        function adjustFontSize(isZoomIn) {
+          const busInfoElements = document.querySelectorAll(
+            "#busInfoLeft div, #busInfoRight div"
+          );
+
+          // 폰트 크기 증가/감소
+          fontSize += isZoomIn ? 2 : -2;
+          fontSize = Math.max(12, Math.min(fontSize, 48)); // 최소 12px, 최대 48px 제한
+
+          // 각 요소에 font-size 적용
+          busInfoElements.forEach((element) => {
+            element.style.fontSize = fontSize + "px";
+          });
+        }
+
+        // 이벤트 핸들러 등록
+        const zoomInButton = document.querySelector(".zoomin");
+        const zoomOutButton = document.querySelector(".zoomout");
+
+        if (zoomInButton) {
+          zoomInButton.addEventListener("click", () => adjustFontSize(true)); // + 버튼
+        }
+
+        if (zoomOutButton) {
+          zoomOutButton.addEventListener("click", () => adjustFontSize(false)); // - 버튼
+        }
+      });
       let busTimersLeft = [];
       let busTimersRight = [];
 
@@ -166,8 +198,8 @@
           <div class="wrap">
             <img src="../src/돋보기.png" class="magnifying" />
           </div>
-          <button class="zoom">+</button>
-          <button class="zoom">-</button>
+          <button class="zoomin">+</button>
+          <button class="zoomout">-</button>
         </div>
       </footer>
     </div>

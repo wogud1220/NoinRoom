@@ -83,7 +83,18 @@ body {
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  min-height: 200px;
+  max-height: 800px; /* 화면 높이의 50%로 제한 */
+  overflow-y: auto; /* 콘텐츠가 넘칠 경우 스크롤바 표시 */
 }
+
+#busInfoLeft div,
+#busInfoRight div {
+  font-size: 24px; /* 초기 글씨 크기 */
+  line-height: 1.2;
+}
+
 
 #busInfoLeft div,
 #busInfoRight div {
@@ -92,7 +103,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 3px;
   background-color: #ffffff;
-  font-size: 14px;
+  font-size: 24px;
   line-height: 1.2;
 }
 
